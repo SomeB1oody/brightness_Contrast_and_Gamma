@@ -24,7 +24,7 @@ namespace
 			{
 				for (int channel = 0; channel < inputImage.channels(); channel++)
 				{
-					outputImage.at<Vec3b>(row, col)[channel] = saturate_cast<uchar>(alpha * inputImage.at<Vec3b>(row, col)[channel] - beta);
+					outputImage.at<Vec3b>(row, col)[channel] = saturate_cast<uchar>(alpha * inputImage.at<Vec3b>(row, col)[channel] + beta);
 					cout << "row: " << row + 1 << "/" << inputImage.rows<<"    ";
 					cout << "col: " << col + 1 << "/" << inputImage.cols<<"    ";
 					cout << "channel: " << channel + 1 << "/" << inputImage.channels()<<endl;
