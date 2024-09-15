@@ -11,27 +11,24 @@ location = input("Enter HERE: ")
 original_img = cv.imread(location, cv.IMREAD_COLOR)
 if original_img is None:
     raise ValueError("Couldn't load the image")
-global image_bc, image_bco, image_g, image_go
+global image_bc, image_g
 alpha = 100
 beta = 100
 gamma = 100
 
 def contrast_brightness_adjustment(input_image, _alpha, _beta):
-    global image_bc, image_bco
+    global image_bc
     output_image = cv.convertScaleAbs(input_image, alpha=_alpha, beta=_beta)
-    image_bc = cv.hconcat(input_image, output_image)
-    cv.imshow("Contrast Brightness", image_bc)
-    image_bco = output_image
-
+    image_bc = output_image
+    cv.imshow("Contrast and Brightness (Linear)", image_bc)
 def gamma_correction(input_image, _gamma):
-    global image_g, image_go
+    global image_g
     assert _gamma >= 0, "Gamma value should be non-negative."
     look_up_table = np.zeros((256,), dtype=np.uint8)
     for index in range(256):
         value = np.clip((index / 255.0) ** _gamma * 255.0, 0, 255)
         look_up_table[index] = np.uint8(value)
-    image_go = cv.LUT(input_image, look_up_table)
-    image_g = cv.hconcat(input_image, image_go)
+    image_g = cv.LUT(input_image, look_up_table)
     cv.imshow("Gamma (Nonlinear)", image_g)
 
 def alpha_track_bar(_alpha):
@@ -58,10 +55,7 @@ alpha_track_bar(100)
 beta_track_bar(100)
 
 cv.waitKey()
-
-cv.imwrite("Linear_Adjustment_Contrast_Output.jpg", image_bc)
-cv.imwrite("Linear_Adjusted_Output.jpg", image_bco)
+cv.imwrite("Linear_Adjusted_Output.jpg", image_bc)
 cv.imwrite("Gamma_Correction_Contrast_Output.jpg", image_g)
-cv.imwrite("Gamma_Corrected_Output.jpg", image_go)
 
 cv.destroyAllWindows()
