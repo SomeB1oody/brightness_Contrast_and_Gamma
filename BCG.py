@@ -26,7 +26,7 @@ def contrast_brightness_adjustment(input_image, _alpha, _beta):
 def gamma_correction(input_image, _gamma):
     global image_g, image_go
     assert _gamma >= 0, "Gamma value should be non-negative."
-    look_up_table = np.zeros((1,256), dtype=np.uint8)
+    look_up_table = np.zeros((256,), dtype=np.uint8)
     for index in range(256):
         value = np.clip((index / 255.0) ** _gamma * 255.0, 0, 255)
         look_up_table[index] = np.uint8(value)
