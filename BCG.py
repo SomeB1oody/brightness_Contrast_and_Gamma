@@ -6,7 +6,7 @@ import cv2 as cv
 import numpy as np
 #ask for path of image
 print("Please enter the path of the image\t")
-print("Example: C:\\Wallpaper\\02.jpg\t")
+print("Example: C:\\Wallpaper\\02.png\t")
 location = input("Enter HERE: ")
 original_img = cv.imread(location, cv.IMREAD_COLOR)
 #Determine if the read was successful
@@ -68,8 +68,8 @@ def gamma_track_bar(_gamma):
 cv.namedWindow("Contrast and Brightness (Linear)", cv.WINDOW_AUTOSIZE)
 cv.namedWindow("Gamma (Nonlinear)", cv.WINDOW_AUTOSIZE)
 #create track bar
-cv.createTrackbar("Brightness Value (Beta)", "Contrast and Brightness (Linear)", alpha,200, alpha_track_bar)
-cv.createTrackbar("Contrast Value (Alpha)", "Contrast and Brightness (Linear)", beta, 200,beta_track_bar)
+cv.createTrackbar("Contrast Value (Alpha)", "Contrast and Brightness (Linear)", alpha,200, alpha_track_bar)
+cv.createTrackbar("Brightness Value (Beta)", "Contrast and Brightness (Linear)", beta, 200,beta_track_bar)
 cv.createTrackbar("Gamma Value", "Gamma (Nonlinear)", gamma, 200, gamma_track_bar)
 #initialize
 alpha_track_bar(100)
